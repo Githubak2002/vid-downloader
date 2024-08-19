@@ -2,48 +2,70 @@
 import SignInwithGoogle from "@/app/components/SigninWirhGoogle";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import axios from "axios";
+
 import { useState, useEffect } from "react";
-import { useSession, signOut } from "next-auth/react";
 
 export default function SignIn() {
   const router = useRouter();
   const session = useSession();
   const {data} = session;
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false); // Added loading state
+  
   // console.log("data → ",data);
 
   // added because google sign in in not getting redirected to prfile page
-  useEffect(() => {
-    if(data)
-      router.push('/profile');
-  },[data]);
+  // useEffect(() => {
+  //   if(data)
+  //     router.push('/profile');
+  // },[data]);
 
-  const [loading, setLoading] = useState(false); // Added loading state
 
   // Handle credentials sign-in
   const handleCredentialsSignIn = async (e) => {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries()); // Convert FormData to a plain object
-    // console.log("data → ",data);
+    const data = Object.fromEntries(formData.entries()); 
+    console.log("data → ",data);
+    const { email, password, name } = data; 
+
 
     try {
-      const result = await signIn("credentials", {
-        redirect: false,
-        ...data,
-      });
-      // console.log("result → ", result);
-
-      if (result.ok) {
-        router.push("/profile"); // Redirect on success
+      const response = await axios.post('/api/signup', { name, email, password });
+      if (response.status === 201) {
+        router.push('/signin');
+        console.log("user signed up sucessful!")
       } else {
-        console.error("Sign-in failed → ", result.error);
+        console.error(response.data.error);
       }
     } catch (error) {
-      console.error("Error during sign-in → ", error);
+      console.error(error);
     } finally {
       setLoading(false);
     }
+
+    // try {
+    //   const result = await signIn("credentials", {
+    //     redirect: false,
+    //     ...data,
+    //   });
+
+    //   if (result.ok) {
+    //     router.push("/profile"); 
+    //   } else {
+    //     console.error("Sign-in failed → ", result.error);
+    //   }
+    // } catch (error) {
+    //   console.error("Error during sign-in → ", error);
+    // } 
+    // finally {
+    //   setLoading(false);
+    // }
   };
 
   return (
@@ -56,7 +78,7 @@ export default function SignIn() {
 
           <div className="flex flex-col gap-y-3">
               <input
-                name="full name"
+                name="name"
                 type="text"
                 className="border p-2 rounded-lg h-9"
                 placeholder="Full Name"
