@@ -1,25 +1,24 @@
-import {SignOut} from "@/app/components/signout-button";
-import { auth } from "@/auth"
-import Link from 'next/link';
- 
-const session = await auth()
+"use client";
 
+import { useSession, signOut } from "next-auth/react";
+import Link from "next/link";
 
 const Nav = () => {
+  const {data : session} = useSession();
+  
   return (
-
-  <nav className="flex gap-x-4 justify-center items-center py-4">
-    {
-      session && 
-      <SignOut />
-
-    }
-    <Link href="/" className="text-lg font-bold">Home</Link>
-    <Link href="/signin" className="text-lg font-bold">Sign In</Link>
-    {/* <SignOut /> */}
-  </nav>
-
-  )
+    <nav className="flex gap-x-4 justify-between items-center px-4 h-[10vh]">
+      <Link href="/" className="text-lg font-bold">Home</Link>
+      {session ? (
+        <main>
+          <Link href="/profile" className="text-lg font-bold pr-4">Profile</Link>
+          <button onClick={() => signOut({callbackUrl:"/"})} className="text-lg font-bold">Sign Out</button>
+        </main>
+      ) : (
+        <Link href="/signin" className="text-lg font-bold">Sign In</Link>
+      )}
+    </nav>
+  );
 };
 
 export default Nav;

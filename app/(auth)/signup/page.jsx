@@ -50,11 +50,11 @@ export default function SignIn() {
     <section className="mx-auto px-4 flexCenter">
       <main className="sm:min-w-[340px] min-w-full shadow-2xl py-6 px-10 border-2 border-gray-300 mt-[5vh] rounded-xl font-bold text-sm">
         <form onSubmit={handleCredentialsSignIn}>
-          <h3 className="text-center text-2xl pb-5 font-semibold text-blue-400">
-            Sign In
+          <h3 className="text-center text-xs pb-5 font-semibold text-blue-400">
+            Sign up [pending] registering a new user
           </h3>
 
-          {/* <div className="flex flex-col gap-y-3">
+          <div className="flex flex-col gap-y-3">
               <input
                 name="full name"
                 type="text"
@@ -64,7 +64,7 @@ export default function SignIn() {
                 // onChange={(e) => setName(e.target.value)}
                 required
               />
-            </div> */}
+            </div>
 
           <div className="flex flex-col gap-y-3 mt-4 h-9">
             <input
@@ -97,16 +97,13 @@ export default function SignIn() {
             }`}
             disabled={loading}
           >
-            {loading ? "Signing In..." : "Continue"}
+            {loading ? "Signing Up..." : "Sign Up"}
           </button>
 
-          <p className="text-sm mt-5">
-            Don't have an account?{" "}
-            <span
-              onClick={() => router.push("/signup")}
-              className="text-blue-500 cursor-pointer"
-            >
-              Sign Up
+          <p className="text-center text-sm mt-5">
+            Already registered?{" "}
+            <span onClick={() => router.push('/signin')} className="text-blue-500 hover:cursor-pointer">
+              Sign In
             </span>
           </p>
 
