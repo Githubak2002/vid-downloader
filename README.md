@@ -13,7 +13,8 @@
   <li>REST FULL API to download instagram and youTube vidoe</li>
 </ol>
 
-![image](https://github.com/user-attachments/assets/14c73b79-22b9-446d-b6ab-551431a8bb0d)
 
-![image](https://github.com/user-attachments/assets/f12a85cc-ad22-47cc-bea8-b93c7e20b03a)
-
+<div style="display:flex, flex-direction: row; justify-content: center; gap: 20px;">
+    <img src="https://github.com/user-attachments/assets/14c73b79-22b9-446d-b6ab-551431a8bb0d" alt="Image 1" height="360px">
+    <img src="https://github.com/user-attachments/assets/4fefd648-c857-40bf-9f10-6ea7efe5b8d1" alt="Image 2" height="360px">
+</div>
