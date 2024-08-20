@@ -10,12 +10,15 @@ const Nav = () => {
     <nav className="flex gap-x-4 justify-between items-center px-4 h-[10vh]">
       <Link href="/" className="text-lg font-bold">Home</Link>
       {session ? (
-        <main>
+        <div>
           <Link href="/profile" className="text-lg font-bold pr-4">Profile</Link>
           <button onClick={() => signOut({callbackUrl:"/"})} className="text-lg font-bold">Sign Out</button>
-        </main>
+        </div>
       ) : (
-        <Link href="/signin" className="text-lg font-bold">Sign In</Link>
+        <div>
+          <Link href="/signin" className="text-lg font-bold pr-4">Sign In</Link>
+          <Link href="/signup" className="text-lg font-bold">Sign Up</Link>
+        </div>
       )}
     </nav>
   );
